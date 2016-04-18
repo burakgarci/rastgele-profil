@@ -111,7 +111,7 @@ $p = new Profil();
 
 					<p>
 						Birden fazla profil oluşturma (en fazla 200):
-						<pre>http://burakgarci.net/lab/rastgele-profil/api.php?miktar=20</pre>
+						<pre>http://burakgarci.net/lab/rastgele-profil/api.php?adet=20</pre>
 					</p>
 
 					<button class="modal-tamam">Eyvallah</button>

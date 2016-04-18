@@ -135,20 +135,20 @@ class Profil
 		return $this;
 	}
 
-	public function api($miktar = 1, $cinsiyet = null){
+	public function api($adet = 1, $cinsiyet = null){
 		$profiller = array();
 
-		if ($miktar > 250) $miktar = 250;
-		if ($miktar < 0) $miktar = 1;
-		if (!ctype_digit($miktar)) $miktar = 1;
+		if ($adet > 250) $adet = 250;
+		if ($adet < 0) $adet = 1;
+		if (!ctype_digit($adet)) $adet = 1;
 		if ($cinsiyet != "kadın" && $cinsiyet != "erkek") $cinsiyet = null;
 
-		for ($i=0; $i < $miktar; $i++) {
+		for ($i=0; $i < $adet; $i++) {
 			$profil = new Profil();
 			$profiller[] = $profil->olustur($cinsiyet);
 		}
 
-		if ($miktar === 1) $profiller = $profiller[0];
+		if ($adet === 1) $profiller = $profiller[0];
 
 		// return json_encode($profiller, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
 		return json_encode($profiller, 64 | 256 | 128);

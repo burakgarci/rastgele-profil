@@ -13,7 +13,7 @@ Rastgele Profil Oluşturucu tasarımcılar için rastgele profil bilgileri oluş
 
 ### Kullanım
 
-	http://burakgarci.net/lab/rastgele-profil/api.php
+	http://rp.burakgarci.net/api.php
 
 **Çıktı:**
 
@@ -41,8 +41,8 @@ Rastgele Profil Oluşturucu tasarımcılar için rastgele profil bilgileri oluş
 
 **Cinsiyet seçerek oluşturma (kadın, erkek):**
 
-	http://burakgarci.net/lab/rastgele-profil/api.php?cinsiyet=kadın
+	http://rp.burakgarci.net/api.php?cinsiyet=kadın
 
 **Birden fazla profil oluşturma (en fazla 200):**
 
-	http://burakgarci.net/lab/rastgele-profil/api.php?adet=20
+	http://rp.burakgarci.net/api.php?adet=20

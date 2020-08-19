@@ -69,15 +69,15 @@ header a button {
 	transition: all 0.2s ease-in-out;
 }
 button.kadin-btn {
-    background: #9C27B0;
+	background: #9C27B0;
 }
 
 button.erkek-btn {
-    background: #039BE5;
+	background: #039BE5;
 }
 
 button.uniseks-btn {
-    background: #689F38;
+	background: #689F38;
 }
 header a {
 	border: none;
@@ -88,7 +88,7 @@ header a button.aktif {
 	box-shadow: 0px 3px 1px 0px #aaa;
 }
 #profil {
-	max-width: 480px;
+	max-width: 540px;
 	margin: auto;
 	padding: 20px 0 0 0;
 }
@@ -101,13 +101,13 @@ img#profil_resmi {
 }
 
 img#profil_resmi .buyut {
-    width: 512px;
-    height: auto;
-    border-radius: 3px;
-    box-shadow: 5px 5px 10px -4px #000;
-    position: absolute;
-    top: 0;
-    left: 0;
+	width: 512px;
+	height: auto;
+	border-radius: 3px;
+	box-shadow: 5px 5px 10px -4px #000;
+	position: absolute;
+	top: 0;
+	left: 0;
 }
 .pdit input {
 	font-family: "Ubuntu", "Open Sans", sans-serif;
@@ -130,22 +130,23 @@ img#profil_resmi .buyut {
 	background: #F98141;
 }
 .pdlt {
-    float: left;
-    width: 25%;
+	float: left;
+	width: 25%;
+	overflow: hidden;
 }
 .pdlt label {
-    display: block;
-    padding: 5px;
+	display: block;
+	padding: 5px;
 }
 .pdit {
-    float: right;
-    width: 75%;
+	float: right;
+	width: 75%;
 }
 .pdlt, .pdit {
-    text-align: left;10px:1px
-    solid #ddd;
-    border-bottom: 1px solid #eee;
-    height: 40px;
+	text-align: left;10px:1px
+	solid #ddd;
+	border-bottom: 1px solid #eee;
+	height: 40px;
 }
 
 footer {
@@ -159,47 +160,91 @@ footer {
 }
 
 main {
-    position: relative;
+	position: relative;
 }
 
 .modal {
-    position: absolute;
-    top: 0;
-    width: 100%;
-    max-width: 740px;
-    background: #fff;
-    border: 1px solid #ddd;
-    padding: 10px;
-    box-shadow: 0 2px 2px 0 #ddd;
-    border-radius: 2px;
-    margin-bottom: 20px;
+	position: absolute;
+	top: 0;
+	width: 100%;
+	max-width: 740px;
+	background: #fff;
+	border: 1px solid #ddd;
+	padding: 10px;
+	box-shadow: 0 2px 2px 0 #ddd;
+	border-radius: 2px;
+	margin-bottom: 20px;
 }
 
 .modal-tamam {
-    margin: auto;
-    width: 100px;
-    display: block;
-    cursor: pointer;
-    background: #2196F3;
-    border: none;
-    height: 30px;
-    color: #eee;
-    border-radius: 2px;
-    box-shadow: 0 2px 2px 0 #aaa;
+	margin: auto;
+	width: 100px;
+	display: block;
+	cursor: pointer;
+	background: #2196F3;
+	border: none;
+	height: 30px;
+	color: #eee;
+	border-radius: 2px;
+	box-shadow: 0 2px 2px 0 #aaa;
 }
 
 code {
-    background: #f5f5f5;
-    padding: 3px;
-    border: 1px solid #f1f1f1;
-    border-radius: 2px;
+	background: #f5f5f5;
+	padding: 3px;
+	border: 1px solid #f1f1f1;
+	border-radius: 2px;
 }
 pre {
-    background: #f5f5f5;
-    padding: 3px;
-    border: 1px solid #f1f1f1;
+	background: #f5f5f5;
+	padding: 3px;
+	border: 1px solid #f1f1f1;
+	border-radius: 2px;
+	font-size: 0.7rem;
+	line-height: 1.2rem;
+	white-space: pre-wrap;
+}
+
+#daha {
+	display: none;
+	height: 360px;
+}
+
+div#daha-ak {
+	background: #03a9f4;
+	color: #fff;
+	cursor: pointer;
+	font-size: 0.9rem;
+	letter-spacing: 0.1rem;
+	font-weight: lighter;
+	position: relative;
+	margin-top: 10px;
+}
+
+.arrow:after {
+	border-left: 10px solid transparent;
+	border-right: 10px solid transparent;
+	content: "";
+	position: absolute;
+	left: 50%;
+	margin-left: -15px;
+	width: 0;
+	height: 0;
+}
+
+.down:after {
+	border-top: 5px solid #03a9f4;
+	bottom: -5px;
+}
+
+.up:after {
+	border-bottom: 5px solid #03a9f4;
+	top: -5px;
+}
+
+.uyari {
+    border: 1px solid #fd8077;
+    padding: 5px;
     border-radius: 2px;
-    font-size: 0.7rem;
-    line-height: 1.2rem;
-    white-space: pre-wrap;
+    background: snow;
 }

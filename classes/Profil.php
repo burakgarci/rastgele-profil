@@ -99,8 +99,31 @@ class Profil
 		$resim 	  = $resimler[array_rand($resimler)];
 		// return $_SERVER["REQUEST_SCHEME"]."://".$_SERVER["HTTP_HOST"].dirname($_SERVER["SCRIPT_NAME"]).substr($resim, 1);
 		// return "//".$_SERVER["HTTP_HOST"].dirname($_SERVER["SCRIPT_NAME"]).substr($resim, 1);
-		return    "http://res.cloudinary.com/brk/image/upload/".substr($resim, strlen('./photos/'));
+		return    "https://ik.imagekit.io/brk/".substr($resim, strlen('./photos/'));
 	}
+
+/*
+	// source.unsplash.com adresi her defasında farklı bir fotoğraf döndürür
+	private function profil_resmi()
+	{
+		switch ($this->cinsiyet) {
+			case 'erkek':
+				//return get_headers("https://source.unsplash.com/512x512/?man,portrait",1)["Location"];
+				return "https://source.unsplash.com/512x512/?man,portrait";
+				break;
+
+			case 'kadın':
+				//return get_headers("https://source.unsplash.com/512x512/?woman,portrait",1)["Location"];
+				return "https://source.unsplash.com/512x512/?woman,portrait";
+				break;
+
+			default:
+				//return get_headers("https://source.unsplash.com/512x512/?portrait",1)["Location"];
+				return "https://source.unsplash.com/512x512/?portrait";
+				break;
+		}
+	}
+*/
 
 	public function olustur($cinsiyet = null){
 		global $veri;

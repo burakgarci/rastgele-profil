@@ -8,7 +8,7 @@ $p = new Profil();
 	<meta charset="UTF-8">
 	<title>Rastgele Profil Oluşturucu</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
-	<meta name="description" content="Tasarımcılar için rastgele profil oluşturucu. İsim, soyisim, biyografi, kullanıcı adı..."/>
+	<meta name="description" content="Tasarımcılar için rastgele profil oluşturucu. İsim, soyisim, biyografi, kullanıcı adı ve dahası."/>
 	<link href='http://fonts.googleapis.com/css?family=Ubuntu:300,400,500,700,300italic,400italic,500italic&amp;subset=latin,greek-ext' rel='stylesheet' type='text/css'>
 	<link rel="stylesheet" type="text/css" href="assets/style.css">
 </head>
@@ -17,9 +17,9 @@ $p = new Profil();
 	<header>
 		<div class="tutucu">
 			<nav>
-				<a href="#erkek"><button class="erkek-btn" data-cinsiyet="erkek">E</button></a>
-				<a href="#kadin"><button class="kadin-btn" data-cinsiyet="kadin">K</button></a>
-				<a href="#uniseks"><button class="uniseks-btn" data-cinsiyet="üniseks" class="aktif">Ü</button></a>
+				<a href="#erkek"><button class="erkek-btn" data-cinsiyet="erkek">♂</button></a>
+				<a href="#kadin"><button class="kadin-btn" data-cinsiyet="kadin">♀</button></a>
+				<a href="#uniseks"><button class="uniseks-btn" data-cinsiyet="üniseks" class="aktif">⚥</button></a>
 			</nav>
 		</div><!-- /.tutucu -->
 	</header>
@@ -27,7 +27,7 @@ $p = new Profil();
 	<main>
 		<div class="tutucu">
 			<div id="profil">
-				<img id="profil_resmi" src="<?php echo $p->get_profil_resmi(); ?>">
+				<img id="profil_resmi" src="<?php echo $p->get_profil_resmi()."?tr=h-150,w-150,q-70"; ?>">
 
 				<div class="clear"></div>
 
@@ -61,11 +61,58 @@ $p = new Profil();
 					<input onclick="select()" readonly spellcheck="false" type="text" id="eposta" value="<?php echo $p->get_eposta() ?>">
 				</div>
 
+				<div id="daha">
+					
+					<div class="pdlt"><label for="adres">Adres</label></div>
+					<div class="pdit">
+						<input onclick="select()" readonly spellcheck="false" type="text" id="adres" value="<?php echo $p->get_adres() ?>">
+					</div>
+					
+					<div class="pdlt"><label for="meslek">Meslek</label></div>
+					<div class="pdit">
+						<input onclick="select()" readonly spellcheck="false" type="text" id="meslek" value="<?php echo $p->get_meslek() ?>">
+					</div>
+					
+					<div class="pdlt"><label for="dogum_tarihi">Doğum tarihi</label></div>
+					<div class="pdit">
+						<input onclick="select()" readonly spellcheck="false" type="text" id="dogum_tarihi" value="<?php echo $p->get_dogum_tarihi() ?>">
+					</div>
+					
+					<div class="pdlt"><label for="yas">Yaş</label></div>
+					<div class="pdit">
+						<input onclick="select()" readonly spellcheck="false" type="text" id="yas" value="<?php echo $p->get_yas() ?>">
+					</div>
+					
+					<div class="pdlt"><label for="telefon_numarasi">Telefon</label></div>
+					<div class="pdit">
+						<input onclick="select()" readonly spellcheck="false" type="text" id="telefon_numarasi" value="<?php echo $p->get_telefon_numarasi() ?>">
+					</div>
+					
+					<div class="pdlt"><label for="ilgi_alani">İlgi alanı</label></div>
+					<div class="pdit">
+						<input onclick="select()" readonly spellcheck="false" type="text" id="ilgi_alani" value="<?php echo $p->get_ilgi_alani() ?>">
+					</div>
+					
+					<div class="pdlt"><label for="profil_resmi_url">Profil resmi</label></div>
+					<div class="pdit">
+						<input onclick="select()" readonly spellcheck="false" type="text" id="profil_resmi_url" value="<?php echo $p->get_profil_resmi() ?>">
+					</div>
+					
+					<div class="pdlt"><label for="web_adresi">Web adresi</label></div>
+					<div class="pdit">
+						<input onclick="select()" readonly spellcheck="false" type="text" id="web_adresi" value="<?php echo $p->get_web_adresi() ?>">
+					</div>
+
+					<div class="clear"></div>
+					
+				</div><!-- /#daha -->
+
 				<div class="clear"></div>
+				<div id="daha-ak" class="arrow down">DAHA FAZLA DETAY...</div><!-- /#profil -->
 			</div><!-- /#profil -->
 
 			<div id="detaylar">
-	 			<div id="hakkinda" class="modal">
+				<div id="hakkinda" class="modal">
 					<h2 class="modal-baslik">Hakkında</h2>
 					<p>Rastgele Profil Oluşturucu tasarımcılar için rastgele profil bilgileri oluşturmaya yarayan basit bir araçtır. <a href="http://burakgarci.net">Burak Garcı</a> tarafından geliştirilmiştir.</p>
 					<p>Profil fotoğrafları <a href="http://unsplash.com">unsplash.com</a> sitesi üzerinde <strong>CC0 1.0 Evrensel</strong> lisansı altında yayınlanan fotoğraflardan seçilmiştir.</p>
@@ -78,40 +125,26 @@ $p = new Profil();
 				<div id="api" class="modal">
 					<h2 class="modal-baslik">API</h2>
 					<p>İstek limiti yoktur, bir defada en fazla 200 farklı kullanıcı profili oluşturabilirsiniz. Çıktı JSON formatındadır.</p>
+
+					<h3>Uyarı</h3>
+					<p class="uyari">Profil resimlerini sunmak için ücretli bir servis kullanmadığımdan bant genişliği sınırı mevcut. Resim adreslerini uygulamanızdan veya web sitenizden sürekli olarak erişmek için kullanmayın. Kullanacağınız resimleri indirin ve kendi sunucunuzda saklayın. Bu servis resim sunucusu amaçlı değil restgele profil oluşturmak için kodlandı. Ücretsiz profil resimleri edinmek için <a target="_blank" href="https://unsplash.com/developers">unsplash.com API</a> kullanın.</p>
+
 					<h3>Kullanım</h3>
 					<p>
-					<pre>http://burakgarci.net/lab/rastgele-profil/api.php</pre>
+						<pre>http://rp.burakgarci.net/api.php</pre>
 
-					</p><pre>{
-    "isim": "Metin",
-    "soyisim": "Yüksel",
-    "tam_isim": "Metin Yüksel",
-    "cinsiyet": "erkek",
-    "sehir": "Zile, Tokat",
-    "adres": "Çalıkuşu Sokağı No:826 Zile, Tokat",
-    "meslek": "Kurumsal Web İletişim Uzmanı",
-    "eposta": "yukselmetin239@example.com",
-    "kullanici_adi": "metin279",
-    "sifre": "qLJaNm89EI",
-    "dogum_tarihi": "19.07.1988",
-    "yas": "27",
-    "telefon_numarasi": "+905392037096",
-    "ilgi_alani": "Bilardo meraklısı",
-    "biyografi": "27 yaşında, Kurumsal Web İletişim Uzmanı",
-    "profil_resmi": "http://res.cloudinary.com/brk/image/upload/erkek/93.jpg",
-    "web_adresi": "yukselmetin.net"
-}</pre>
+					</p><pre><?php echo $p->api(1); ?></pre>
 					
 					<h3>Parametreler</h3>
 
 					<p>
 						Cinsiyet seçerek oluşturma (kadın, erkek):
-						<pre>http://burakgarci.net/lab/rastgele-profil/api.php?cinsiyet=kadın</pre>
+						<pre>http://rp.burakgarci.net/api.php?cinsiyet=kadın</pre>
 					</p>
 
 					<p>
 						Birden fazla profil oluşturma (en fazla 200):
-						<pre>http://burakgarci.net/lab/rastgele-profil/api.php?adet=20</pre>
+						<pre>http://rp.burakgarci.net/api.php?adet=20</pre>
 					</p>
 
 					<button class="modal-tamam">Eyvallah</button>

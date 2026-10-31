@@ -1,31 +1,21 @@
 <?php
 header("Content-type: application/json; charset=utf-8");
 
-// Hataları günlüğe kaydetme
-error_reporting(E_ALL);
+// Hatalar ekrana basılmaz, sunucunun PHP hata günlüğüne yazılır.
+// Deprecation uyarıları Etap 1'de kod güncellenene kadar kapalı.
+error_reporting(E_ALL & ~E_DEPRECATED);
 ini_set('display_errors', 0);
 
-// Hata günlüğü dosyası
-$logDosyasi = 'hatalar.log';
-
-// Profil sınıfını dahil etme
 require_once 'classes/Profil.php';
 
-// Parametreleri al
 $adet = $_GET['adet'] ?? null;
 $cinsiyet = $_GET['cinsiyet'] ?? null;
 
-// API çağrısı
 try {
     $profil = new Profil();
-    $apiSonuc = $profil->api($adet, $cinsiyet);
-
-    // Sonucu JSON formatında çıktı verme
-    echo json_encode($apiSonuc);
-} catch (Exception $e) {
-    // Hata mesajını günlüğe kaydetme
-    error_log("Hata: " . $e->getMessage(), 3, $logDosyasi);
-
-    // Hata durumunda genel bir hata mesajı JSON formatında çıktı verme
-    echo json_encode(['hata' => 'İşlem sırasında bir hata oluştu.']);
+    // Profil::api() zaten JSON string döndürür.
+    echo $profil->api($adet, $cinsiyet);
+} catch (Throwable $e) {
+    error_log('rastgele-profil: ' . $e->getMessage());
+    echo json_encode(['hata' => 'İşlem sırasında bir hata oluştu.'], JSON_UNESCAPED_UNICODE);
 }

@@ -32,7 +32,7 @@ $p = new Profil();
 	<main>
 		<div class="tutucu">
 			<div id="profil">
-				<img id="profil_resmi" src="<?php echo $p->get_profil_resmi(); ?>?format=webp&thumbnail=150" alt="<?php echo $p->get_tam_isim() ?> avatarı">
+				<img id="profil_resmi" src="<?php echo $p->get_profil_resmi(); ?>?tr=h-150,w-150,q-80" alt="<?php echo $p->get_tam_isim() ?> avatarı">
 
 				<div class="clear"></div>
 

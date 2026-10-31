@@ -23,7 +23,7 @@ $("header button").click(function () {
 	json.onreadystatechange = function () {
 		if (json.readyState == 4 && json.status == 200) {
 			var profil = JSON.parse(json.responseText);
-			$("#profil_resmi").attr("src", profil.profil_resmi + "?format=webp&thumbnail=150");
+			$("#profil_resmi").attr("src", profil.profil_resmi + "?tr=h-150,w-150,q-80");
 			$("#tam_isim").val(profil.tam_isim);
 			$("#sehir").val(profil.sehir);
 			$("#biyografi").val(profil.biyografi);

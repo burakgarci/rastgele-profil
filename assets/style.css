@@ -1,250 +1,306 @@
-*, *:before, *:after{
-	-moz-box-sizing: border-box;
-	-webkit-box-sizing: border-box;
-	box-sizing: border-box;
-	outline: none;
+*, *:before, *:after {
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    outline: none;
 }
+
+:root {
+    --mavi: #539bf5;
+    --mavigri: #2d333b;
+    --buzmavi: #31B1C8;
+    --gokmavi: #87ceeb;
+    --arkamavi: #22272e;
+    --beyaz: #ffffff;
+    --kapkara: #000000;
+    --azkara: #444;
+    --gribeyaz: #f5f5f5;
+    --acikgri: #e8e9eb;
+    --kirmizi: #EA5E5E;
+    --yesil: #46954a;
+    --altin: #FFD700;
+    --kenarlik: #444c56;
+    --golgelik: #1c2128;
+}
+
 html, body {
-	font-family: "Ubuntu", "Open Sans", sans-serif;
-	font-size: 16px;
-	line-height: 28px;
-	margin: 0;
-	padding: 3px;
-	color: #666;
-	background: #fff;
+    font-family: "Ubuntu", "Open Sans", sans-serif;
+    font-size: 16px;
+    line-height: 28px;
+    margin: 0;
+    padding: 3px;
+    color: var(--acikgri);
+    background: var(--arkamavi);
 }
+
 img {
-	max-width: 100%;
-	height: auto;
+    max-width: 100%;
+    height: auto;
 }
+
 a {
-	color: #31B1C8;
-	text-decoration: none;
-	border-bottom: 1px dotted #aaa;
-	transition: color .2s ease;
+    color: var(--gokmavi);
+    text-decoration: none;
+    border-bottom: 1px dotted var(--kenarlik);
+    transition: color .2s ease;
 }
+
 a:hover {
-	color: #EA5E5E;
+    color: #EA5E5E;
 }
-h1,h2,h3,h4,h5,h6 {
-	font-weight: normal;
+
+h1, h2, h3, h4, h5, h6 {
+    font-weight: normal;
 }
-.clear:before,
+
+.clear:before, .clear:after {
+    content: " ";
+    display: table;
+}
+
 .clear:after {
-	content: " ";
-	display: table;
+    clear: both;
 }
-.clear:after {
-	clear: both;
-}
+
 .clear {
-	*zoom: 1;
+    *zoom: 1; }
+
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
 }
+
+::-webkit-scrollbar-thumb {
+    background: #3D3D3D;
+    border-radius: 0px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #292929;
+}
+
+::-webkit-scrollbar-track {
+    background: #707070;
+    border-radius: 0px;
+    box-shadow: inset 0px 0px 0px 0px #F0F0F0;
+}
+
 #wrap {
-	max-width: 860px;
-	margin: 0 auto;
-	padding: 0 10px;
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 0 10px;
 }
+
 .tutucu {
-	width: 100%;
-	max-width: 740px;
-	margin: 20px auto auto auto;
+    width: 100%;
+    max-width: 740px;
+    margin: 20px auto auto auto;
 }
+
 header, #profil {
-	text-align: center;
+    text-align: center;
 }
+
 header a button {
-	background: #F57541;
-	color: #fff;
-	border: none;
-	height: 40px;
-	width: 40px;
-	font-size: 1.3rem;
-	border-radius: 50%;
-	text-decoration: none;
-	cursor: pointer;
-	outline: none;
-	font-family: Ubuntu;
-	box-shadow: 0px 1px 1px 0px #aaa;
-	transition: all 0.2s ease-in-out;
+    background: #F57541;
+    color: #fff;
+    border: none;
+    height: 40px;
+    width: 40px;
+    font-size: 1.3rem;
+    border-radius: 50%;
+    text-decoration: none;
+    cursor: pointer;
+    outline: none;
+    font-family: Ubuntu;
+    transition: all 0.1s ease-in-out;
 }
+
 button.kadin-btn {
-	background: #9C27B0;
+    background: #9C27B0;
 }
 
 button.erkek-btn {
-	background: #039BE5;
+    background: #039BE5;
 }
 
 button.uniseks-btn {
-	background: #689F38;
+    background: #689F38;
 }
+
 header a {
-	border: none;
-	margin: 0px 5px;
+    border: none;
+    margin: 0px 5px;
 }
 
 header a button.aktif {
-	box-shadow: 0px 3px 1px 0px #aaa;
+    box-shadow: 0px 0px 5px 2px var(--acikgri);
+    border: 1px solid var(--acikgri);
 }
+
+header a button:active {
+	transform: translateY(5px);
+}
+
 #profil {
-	max-width: 540px;
-	margin: auto;
-	padding: 20px 0 0 0;
+    max-width: 540px;
+    margin: auto;
+    padding: 20px 0 0 0;
 }
 
 img#profil_resmi {
-	border-radius: 50%;
-	box-shadow: 0px 2px 10px -4px #000;
-	width: 150px;
-	height: 150px;
+    border-radius: 50%;
+    box-shadow: 0px 0px 20px -10px #7a7a7a;
+    width: 150px;
+    height: 150px;
 }
 
 img#profil_resmi .buyut {
-	width: 512px;
-	height: auto;
-	border-radius: 3px;
-	box-shadow: 5px 5px 10px -4px #000;
-	position: absolute;
-	top: 0;
-	left: 0;
-}
-.pdit input {
-	font-family: "Ubuntu", "Open Sans", sans-serif;
-	font-weight: lighter;
-	font-size: 16px;
-	line-height: 28px;
-	color: #444;
-	width: 100%;
-	padding: 5px 0;
-	border: none;
-	outline: none;
-	background: #fff;
+    width: 512px;
+    height: auto;
+    border-radius: 3px;
+    box-shadow: 5px 5px 10px -4px #000000;
+    position: absolute;
+    top: 0;
+    left: 0;
 }
 
-.pdit input:focus {
-	border-bottom-color: #F57541;
+.pdit input {
+    font-family: "Ubuntu", "Open Sans", sans-serif;
+    font-weight: lighter;
+    font-size: 16px;
+    line-height: 28px;
+    color: var(--acikgri);
+    width: 100%;
+    padding: 5px 0;
+    border: none;
+    outline: none;
+    background: var(--arkamavi);
 }
-.pdit input::selection{
-	color: #FFF;
-	background: #F98141;
+
+.pdit input::selection {
+    color: var(--beyaz);
+    background: var(--kirmizi);
 }
+
 .pdlt {
-	float: left;
-	width: 25%;
-	overflow: hidden;
+    float: left;
+    width: 25%;
+    overflow: hidden;
 }
+
 .pdlt label {
-	display: block;
-	padding: 5px;
+    display: block;
+    padding: 5px;
 }
+
 .pdit {
-	float: right;
-	width: 75%;
+    float: right;
+    width: 75%;
 }
+
 .pdlt, .pdit {
-	text-align: left;10px:1px
-	solid #ddd;
-	border-bottom: 1px solid #eee;
-	height: 40px;
+    text-align: left;
+    border-bottom: 1px solid var(--kenarlik);
+    height: 40px;
 }
 
 footer {
-	margin-top: 30px;
-	text-align: center;
+    margin-top: 30px;
+    text-align: center;
 }
 
 #hakkinda, #api {
-	display: none;
-	font-size: .9rem;
+    display: none;
+    font-size: .9rem;
 }
 
 main {
-	position: relative;
+    position: relative;
 }
 
 .modal {
-	position: absolute;
-	top: 0;
-	width: 100%;
-	max-width: 740px;
-	background: #fff;
-	border: 1px solid #ddd;
-	padding: 10px;
-	box-shadow: 0 2px 2px 0 #ddd;
-	border-radius: 2px;
-	margin-bottom: 20px;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    max-width: 740px;
+    background: var(--arkamavi);
+    border: 1px solid var(--kenarlik);
+    padding: 10px;
+    box-shadow: 0px 0px 15px 5px var(--kapkara);
+    border-radius: 2px;
+    margin-bottom: 20px;
 }
 
 .modal-tamam {
-	margin: auto;
-	width: 100px;
-	display: block;
-	cursor: pointer;
-	background: #2196F3;
-	border: none;
-	height: 30px;
-	color: #eee;
-	border-radius: 2px;
-	box-shadow: 0 2px 2px 0 #aaa;
+    margin: auto;
+    width: 100px;
+    display: block;
+    cursor: pointer;
+    background: var(--mavi);
+    border: none;
+    height: 30px;
+    color: #eee;
+    border-radius: 2px;
 }
 
 code {
-	background: #f5f5f5;
-	padding: 3px;
-	border: 1px solid #f1f1f1;
-	border-radius: 2px;
+    background: #181818;
+    padding: 3px;
+    border: 1px solid #555;
+    border-radius: 2px;
 }
+
 pre {
-	background: #f5f5f5;
-	padding: 3px;
-	border: 1px solid #f1f1f1;
-	border-radius: 2px;
-	font-size: 0.7rem;
-	line-height: 1.2rem;
-	white-space: pre-wrap;
+    background: #181818;
+    padding: 3px;
+    border: 1px solid #555;
+    border-radius: 2px;
+    font-size: 0.7rem;
+    line-height: 1.2rem;
+    white-space: pre-wrap;
 }
 
 #daha {
-	display: none;
-	height: 360px;
+    display: none;
+    height: 360px;
 }
 
 div#daha-ak {
-	background: #03a9f4;
-	color: #fff;
-	cursor: pointer;
-	font-size: 0.9rem;
-	letter-spacing: 0.1rem;
-	font-weight: lighter;
-	position: relative;
-	margin-top: 10px;
+    background: var(--mavi);
+    color: var(--beyaz);
+    cursor: pointer;
+    font-size: 0.9rem;
+    letter-spacing: 0.1rem;
+    font-weight: lighter;
+    position: relative;
+    margin-top: 10px;
 }
 
 .arrow:after {
-	border-left: 10px solid transparent;
-	border-right: 10px solid transparent;
-	content: "";
-	position: absolute;
-	left: 50%;
-	margin-left: -15px;
-	width: 0;
-	height: 0;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    content: "";
+    position: absolute;
+    left: 50%;
+    margin-left: -15px;
+    width: 0;
+    height: 0;
 }
 
 .down:after {
-	border-top: 5px solid #03a9f4;
-	bottom: -5px;
+    border-top: 5px solid var(--mavi);
+    bottom: -5px;
 }
 
 .up:after {
-	border-bottom: 5px solid #03a9f4;
-	top: -5px;
+    border-bottom: 5px solid var(--mavi);
+    top: -5px;
 }
 
 .uyari {
-    border: 1px solid #fd8077;
+    border: 1px solid #600a04;
     padding: 5px;
     border-radius: 2px;
-    background: snow;
+    background: #000000;
 }

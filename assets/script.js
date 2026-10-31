@@ -1,24 +1,29 @@
-$("#hakkinda-gg").click(function(){
+$("#hakkinda-gg").click(function () {
 	$("#api").hide();
 	$("#hakkinda").fadeToggle(100);
 });
 
-$("#api-gg").click(function(){
+$("#api-gg").click(function () {
 	$("#hakkinda").hide();
 	$("#api").fadeToggle(100);
 });
 
-$("header button").click(function(){
+$(".pdit > input").dblclick(function (e) {
+	$(this).select();
+	e.preventDefault();
+});
+
+$("header button").click(function () {
 	$('button.aktif').not(this).removeClass('aktif');
 	$(this).addClass("aktif");
 
-	var cinsiyet = $(this).attr("data-cinsiyet").replace("i","ı");
+	var cinsiyet = $(this).attr("data-cinsiyet").replace("i", "ı");
 	var json = new XMLHttpRequest();
 
-	json.onreadystatechange = function() {
+	json.onreadystatechange = function () {
 		if (json.readyState == 4 && json.status == 200) {
 			var profil = JSON.parse(json.responseText);
-			$("#profil_resmi").attr("src", profil.profil_resmi+"?tr=h-150,w-150,q-80");
+			$("#profil_resmi").attr("src", profil.profil_resmi + "?format=webp&thumbnail=150");
 			$("#tam_isim").val(profil.tam_isim);
 			$("#sehir").val(profil.sehir);
 			$("#biyografi").val(profil.biyografi);
@@ -41,19 +46,19 @@ $("header button").click(function(){
 
 });
 
-$(".modal-tamam").click(function(){
+$(".modal-tamam").click(function () {
 	$(this).parents(".modal").fadeOut(100);
 });
 
-$("#daha-ak").click(function(){
+$("#daha-ak").click(function () {
 	if ($("#daha").css('display') == 'none') {
-		$("#daha").slideDown( "fast", function() {
+		$("#daha").slideDown("fast", function () {
 			$("#daha-ak").removeClass("down");
 			$("#daha-ak").addClass("up");
 			$("#daha-ak").text("DETAYLARI GİZLE");
 		});
 	} else {
-		$("#daha").slideUp( "fast", function() {
+		$("#daha").slideUp("fast", function () {
 			$("#daha-ak").removeClass("up");
 			$("#daha-ak").addClass("down");
 			$("#daha-ak").text("DAHA FAZLA DETAY...");

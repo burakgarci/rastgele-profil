@@ -9,7 +9,7 @@ Rastgele Profil Oluşturucu tasarımcılar için rastgele profil bilgileri oluş
 
 ## API
 
-İstek limiti yoktur, bir defada en fazla 200 farklı kullanıcı profili oluşturabilirsiniz. Çıktı JSON formatındadır.
+İstek limiti yoktur, bir defada en fazla 250 farklı kullanıcı profili oluşturabilirsiniz. Çıktı JSON formatındadır.
 
 ### Kullanım
 
@@ -43,6 +43,6 @@ Rastgele Profil Oluşturucu tasarımcılar için rastgele profil bilgileri oluş
 
 	http://rp.burakgarci.net/api.php?cinsiyet=kadın
 
-**Birden fazla profil oluşturma (en fazla 200):**
+**Birden fazla profil oluşturma (en fazla 250):**
 
 	http://rp.burakgarci.net/api.php?adet=20

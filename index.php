@@ -134,7 +134,7 @@ $p = new Profil();
 				</div>
 				<div id="api" class="modal">
 					<h2 class="modal-baslik">API</h2>
-					<div>İstek limiti yoktur, bir defada en fazla 200 farklı kullanıcı profili oluşturabilirsiniz. Çıktı JSON formatındadır.</div>
+					<div>İstek limiti yoktur, bir defada en fazla 250 farklı kullanıcı profili oluşturabilirsiniz. Çıktı JSON formatındadır.</div>
 
 					<h3>Uyarı</h3>
 					<div class="uyari">Profil resimlerini sunmak için ücretli bir servis kullanmadığımdan bant genişliği sınırı mevcut. Resim adreslerini uygulamanızdan veya web sitenizden sürekli olarak erişmek için kullanmayın. Kullanacağınız resimleri indirin ve kendi sunucunuzda saklayın. Bu servis resim sunucusu amaçlı değil restgele profil oluşturmak için kodlandı. Ücretsiz profil resimleri edinmek için <a target="_blank" href="https://unsplash.com/developers">unsplash.com API</a> kullanın.</div>
@@ -152,7 +152,7 @@ $p = new Profil();
 					</div>
 
 					<div>
-						Birden fazla profil oluşturma (en fazla 200):
+						Birden fazla profil oluşturma (en fazla 250):
 						<pre>https://rp.burakgarci.net/api.php?adet=20</pre>
 					</div>
 

@@ -1,0 +1,7 @@
+Options -Indexes
+
+# Uzantısız sayfa adresleri: /hakkinda -> hakkinda.php
+RewriteEngine On
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME}.php -f
+RewriteRule ^([a-z0-9-]+)$ $1.php [L]

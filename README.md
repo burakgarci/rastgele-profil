@@ -75,9 +75,19 @@ Her yanıtta `X-RateLimit-Limit` ve `X-RateLimit-Remaining` başlıkları bulunu
 
 PHP 7.4 veya üstü yeterlidir (8.x önerilir). Sunucuda Composer veya terminal gerekmez.
 
-- Dosyaları FTP ile yükleyin. `tests/`, `vendor/`, `composer.json`, `phpunit.xml.dist` ve `.md` dosyalarının yüklenmesi gerekmez.
-- `depo/` klasörü PHP tarafından yazılabilir olmalı (hız sınırı sayaçları burada tutulur; `.htaccess` ile dışarıya kapalıdır).
-- Sağlık kontrolü: `saglik.php` veri dosyalarını, fotoğrafları ve sayaç deposunu kontrol eder; sorun varsa `503` döner.
+```
+public/        alt alan adının kök dizini: sayfalar, api.php, saglik.php, assets/, photos/
+src/           motor ve HTTP katmanı
+sablonlar/     sayfaların ortak üst ve alt kısmı
+data/          TXT veri kaynakları
+depo/          hız sınırı sayaçları (PHP yazabilmeli)
+config.php     varsayılan ayarlar (sunucuya özel olanlar config.local.php'ye)
+CHANGELOG.md   değişiklikler; Hakkında sayfasındaki liste buradan okunur
+```
+
+- Alt alan adının kök dizinini `public/` yapın. Panel izin vermiyorsa proje kökündeki `.htaccess` istekleri `public/`'e yönlendirir.
+- `tests/`, `vendor/`, `composer.json`, `phpunit.xml.dist` ve `.md` dosyalarının (CHANGELOG.md hariç) yüklenmesi gerekmez.
+- Yüklemeden sonra `saglik.php` veri dosyalarını, fotoğrafları ve sayaç deposunu kontrol eder; sorun varsa `503` döner.
 
 ### Ayarlar
 

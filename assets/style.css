@@ -304,3 +304,13 @@ div#daha-ak {
     border-radius: 2px;
     background: #000000;
 }
+
+#durum {
+    color: #c0392b;
+    text-align: center;
+    margin: 8px 0;
+}
+
+#durum:empty {
+    display: none;
+}

@@ -1,6 +1,23 @@
 <?php
-require_once 'classes/Profil.php';
-$p = new Profil();
+$ayar = require __DIR__ . '/bootstrap.php';
+
+use RastgeleProfil\ProfilUretici;
+use RastgeleProfil\Rastgele;
+use RastgeleProfil\Veri;
+
+try {
+	$p = (new ProfilUretici(Veri::yukle($ayar['veri_dizini'], $ayar['foto_dizini']), new Rastgele(), $ayar['resim_url_tabani']))->uret();
+} catch (Throwable $hata) {
+	error_log('rastgele-profil index: ' . $hata->getMessage());
+	http_response_code(500);
+	exit('Şu an profil oluşturulamıyor. Lütfen daha sonra tekrar deneyin.');
+}
+
+$e = function (string $alan) use ($p): string {
+	return htmlspecialchars($p[$alan], ENT_QUOTES, 'UTF-8');
+};
+$hs = $ayar['hiz_siniri'];
+$limitli = $hs['etkin'] && $hs['saniyede'] > 0;
 ?>
 <!DOCTYPE html>
 <html lang="tr">
@@ -22,9 +39,9 @@ $p = new Profil();
 	<header>
 		<div class="tutucu">
 			<nav>
-				<a href="#erkek"><button class="erkek-btn" data-cinsiyet="erkek">♂</button></a>
-				<a href="#kadin"><button class="kadin-btn" data-cinsiyet="kadin">♀</button></a>
-				<a href="#uniseks"><button class="uniseks-btn" data-cinsiyet="üniseks">⚥</button></a>
+				<a href="#erkek"><button class="erkek-btn" data-cinsiyet="erkek" aria-label="Erkek profil oluştur" aria-pressed="false">♂</button></a>
+				<a href="#kadin"><button class="kadin-btn" data-cinsiyet="kadin" aria-label="Kadın profil oluştur" aria-pressed="false">♀</button></a>
+				<a href="#uniseks"><button class="uniseks-btn" data-cinsiyet="rastgele" aria-label="Rastgele cinsiyette profil oluştur" aria-pressed="false">⚥</button></a>
 			</nav>
 		</div><!-- /.tutucu -->
 	</header>
@@ -32,80 +49,81 @@ $p = new Profil();
 	<main>
 		<div class="tutucu">
 			<div id="profil">
-				<img id="profil_resmi" src="<?php echo $p->get_profil_resmi(); ?>?tr=h-150,w-150,q-80" alt="<?php echo $p->get_tam_isim() ?> avatarı">
+				<img id="profil_resmi" src="<?= $e('profil_resmi') ?>?tr=h-150,w-150,q-80" alt="<?= $e('tam_isim') ?> avatarı">
 
 				<div class="clear"></div>
+				<p id="durum" role="status" aria-live="polite"></p>
 
 				<div class="pdlt"><label for="tam_isim">İsim</label></div>
 				<div class="pdit">
-					<input readonly spellcheck="false" type="text" id="tam_isim" value="<?php echo $p->get_tam_isim() ?>">
+					<input readonly spellcheck="false" type="text" id="tam_isim" value="<?= $e('tam_isim') ?>">
 				</div>
 
 				<div class="pdlt"><label for="sehir">Şehir</label></div>
 				<div class="pdit">
-					<input readonly spellcheck="false" type="text" id="sehir" value="<?php echo $p->get_sehir() ?>">
+					<input readonly spellcheck="false" type="text" id="sehir" value="<?= $e('sehir') ?>">
 				</div>
 
 				<div class="pdlt"><label for="biyografi">Biyografi</label></div>
 				<div class="pdit">
-					<input readonly spellcheck="false" type="text" id="biyografi" value="<?php echo $p->get_biyografi() ?>">
+					<input readonly spellcheck="false" type="text" id="biyografi" value="<?= $e('biyografi') ?>">
 				</div>
 
 				<div class="pdlt"><label for="kullanici_adi">Kullanıcı adı</label></div>
 				<div class="pdit">
-					<input readonly spellcheck="false" type="text" id="kullanici_adi" value="<?php echo $p->get_kullanici_adi() ?>">
+					<input readonly spellcheck="false" type="text" id="kullanici_adi" value="<?= $e('kullanici_adi') ?>">
 				</div>
 
 				<div class="pdlt"><label for="sifre">Şifre</label></div>
 				<div class="pdit">
-					<input readonly spellcheck="false" type="text" id="sifre" value="<?php echo $p->get_sifre() ?>">
+					<input readonly spellcheck="false" type="text" id="sifre" value="<?= $e('sifre') ?>">
 				</div>
 
 				<div class="pdlt"><label for="eposta">E-posta</label></div>
 				<div class="pdit">
-					<input readonly spellcheck="false" type="text" id="eposta" value="<?php echo $p->get_eposta() ?>">
+					<input readonly spellcheck="false" type="text" id="eposta" value="<?= $e('eposta') ?>">
 				</div>
 
 				<div id="daha">
 
 					<div class="pdlt"><label for="adres">Adres</label></div>
 					<div class="pdit">
-						<input readonly spellcheck="false" type="text" id="adres" value="<?php echo $p->get_adres() ?>">
+						<input readonly spellcheck="false" type="text" id="adres" value="<?= $e('adres') ?>">
 					</div>
 
 					<div class="pdlt"><label for="meslek">Meslek</label></div>
 					<div class="pdit">
-						<input readonly spellcheck="false" type="text" id="meslek" value="<?php echo $p->get_meslek() ?>">
+						<input readonly spellcheck="false" type="text" id="meslek" value="<?= $e('meslek') ?>">
 					</div>
 
 					<div class="pdlt"><label for="dogum_tarihi">Doğum tarihi</label></div>
 					<div class="pdit">
-						<input readonly spellcheck="false" type="text" id="dogum_tarihi" value="<?php echo $p->get_dogum_tarihi() ?>">
+						<input readonly spellcheck="false" type="text" id="dogum_tarihi" value="<?= $e('dogum_tarihi') ?>">
 					</div>
 
 					<div class="pdlt"><label for="yas">Yaş</label></div>
 					<div class="pdit">
-						<input readonly spellcheck="false" type="text" id="yas" value="<?php echo $p->get_yas() ?>">
+						<input readonly spellcheck="false" type="text" id="yas" value="<?= $e('yas') ?>">
 					</div>
 
 					<div class="pdlt"><label for="telefon_numarasi">Telefon</label></div>
 					<div class="pdit">
-						<input readonly spellcheck="false" type="text" id="telefon_numarasi" value="<?php echo $p->get_telefon_numarasi() ?>">
+						<input readonly spellcheck="false" type="text" id="telefon_numarasi" value="<?= $e('telefon_numarasi') ?>">
 					</div>
 
 					<div class="pdlt"><label for="ilgi_alani">İlgi alanı</label></div>
 					<div class="pdit">
-						<input readonly spellcheck="false" type="text" id="ilgi_alani" value="<?php echo $p->get_ilgi_alani() ?>">
+						<input readonly spellcheck="false" type="text" id="ilgi_alani" value="<?= $e('ilgi_alani') ?>">
 					</div>
 
 					<div class="pdlt"><label for="profil_resmi_url">Profil resmi</label></div>
 					<div class="pdit">
-						<input readonly spellcheck="false" type="text" id="profil_resmi_url" value="<?php echo $p->get_profil_resmi() ?>">
+						<input readonly spellcheck="false" type="text" id="profil_resmi_url" value="<?= $e('profil_resmi') ?>">
 					</div>
 
 					<div class="pdlt"><label for="web_adresi">Web adresi</label></div>
 					<div class="pdit">
-						<input readonly spellcheck="false" type="text" id="web_adresi" value="<?php echo $p->get_web_adresi() ?>">
+						<input readonly spellcheck="false" type="text" id="web_adresi" value="<?= $e('web_adresi') ?>">
 					</div>
 
 					<div class="clear"></div>
@@ -113,7 +131,7 @@ $p = new Profil();
 				</div><!-- /#daha -->
 
 				<div class="clear"></div>
-				<div id="daha-ak" class="arrow down">DAHA FAZLA DETAY...</div><!-- /#profil -->
+				<div id="daha-ak" class="arrow down" role="button" tabindex="0" aria-expanded="false" aria-controls="daha">DAHA FAZLA DETAY...</div>
 			</div><!-- /#profil -->
 
 			<div id="detaylar">
@@ -134,27 +152,47 @@ $p = new Profil();
 				</div>
 				<div id="api" class="modal">
 					<h2 class="modal-baslik">API</h2>
-					<div>İstek limiti yoktur, bir defada en fazla 250 farklı kullanıcı profili oluşturabilirsiniz. Çıktı JSON formatındadır.</div>
+					<div>
+						<?php if ($limitli) : ?>
+							Makul kullanım sınırı: IP başına saniyede <?= (int) $hs['saniyede'] ?> istek (kısa süreli en fazla <?= (int) ($hs['patlama'] ?: $hs['saniyede']) ?>).
+						<?php else : ?>
+							İstek limiti yoktur.
+						<?php endif; ?>
+						Bir defada en fazla <?= (int) $ayar['azami_adet'] ?> farklı kullanıcı profili oluşturabilirsiniz. Çıktı JSON formatındadır.
+					</div>
 
 					<h3>Uyarı</h3>
-					<div class="uyari">Profil resimlerini sunmak için ücretli bir servis kullanmadığımdan bant genişliği sınırı mevcut. Resim adreslerini uygulamanızdan veya web sitenizden sürekli olarak erişmek için kullanmayın. Kullanacağınız resimleri indirin ve kendi sunucunuzda saklayın. Bu servis resim sunucusu amaçlı değil restgele profil oluşturmak için kodlandı. Ücretsiz profil resimleri edinmek için <a target="_blank" href="https://unsplash.com/developers">unsplash.com API</a> kullanın.</div>
+					<div class="uyari">Profil resimlerini sunmak için ücretli bir servis kullanmadığımdan bant genişliği sınırı mevcut. Resim adreslerini uygulamanızdan veya web sitenizden sürekli olarak erişmek için kullanmayın. Kullanacağınız resimleri indirin ve kendi sunucunuzda saklayın. Bu servis resim sunucusu amaçlı değil, rastgele profil oluşturmak için kodlandı. Ücretsiz profil resimleri edinmek için <a target="_blank" href="https://unsplash.com/developers">unsplash.com API</a> kullanın.</div>
 
 					<h3>Kullanım</h3>
 					<div>
 						<pre>https://rp.burakgarci.net/api.php</pre>
 					</div>
-					<pre><?php echo $p->api(1); ?></pre>
+					<pre><?= htmlspecialchars(json_encode($p, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT), ENT_QUOTES, 'UTF-8') ?></pre>
 
 					<h3>Parametreler</h3>
 
-					<div>Cinsiyet seçerek oluşturma (kadin, erkek):
+					<div>Cinsiyet seçerek oluşturma (<code>kadın</code> ya da <code>kadin</code>, <code>erkek</code>; büyük/küçük harf fark etmez):
 						<pre>https://rp.burakgarci.net/api.php?cinsiyet=kadin</pre>
 					</div>
 
 					<div>
-						Birden fazla profil oluşturma (en fazla 250):
+						Birden fazla profil oluşturma (en fazla <?= (int) $ayar['azami_adet'] ?>; <code>adet</code> verildiğinde yanıt her zaman dizidir):
 						<pre>https://rp.burakgarci.net/api.php?adet=20</pre>
 					</div>
+
+					<div>
+						E-posta alan adını değiştirme (varsayılan <?= htmlspecialchars($ayar['eposta_alan_adi'], ENT_QUOTES, 'UTF-8') ?>):
+						<pre>https://rp.burakgarci.net/api.php?eposta_alan_adi=firmam.com</pre>
+					</div>
+
+					<div>
+						Tekrar üretilebilir sonuç (aynı <code>seed</code> aynı gün içinde aynı profili verir):
+						<pre>https://rp.burakgarci.net/api.php?seed=42</pre>
+					</div>
+
+					<h3>Hatalar</h3>
+					<div>Geçersiz parametrelerde <code>400</code>, kullanım sınırı aşıldığında <code>429</code> (<code>Retry-After</code> başlığıyla) döner. Gövde her zaman <code>{"hata": "..."}</code> biçimindedir.</div>
 
 					<button class="modal-tamam">Eyvallah</button>
 				</div>
@@ -176,20 +214,7 @@ $p = new Profil();
 
 		</div><!-- /.tutucu -->
 	</footer>
-	<script src="https://code.jquery.com/jquery-1.12.1.min.js"></script>
 	<script src="assets/script.js"></script>
-	<!-- Global site tag (gtag.js) - Google Analytics -->
-	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-31177906-3"></script>
-	<script>
-		window.dataLayer = window.dataLayer || [];
-
-		function gtag() {
-			dataLayer.push(arguments);
-		}
-		gtag('js', new Date());
-
-		gtag('config', 'UA-31177906-3');
-	</script>
 
 </body>
 

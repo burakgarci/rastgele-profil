@@ -1,6 +1,6 @@
 ## Hakkında
 
-Rastgele Profil Oluşturucu tasarımcılar için rastgele profil bilgileri oluşturmaya yarayan basit bir araçtır. [Burak Garcı](http://burakgarci.net) tarafından geliştirilmiştir.
+Rastgele Profil Oluşturucu tasarımcılar ve geliştiriciler için Türkçe rastgele profil bilgileri oluşturmaya yarayan basit bir araçtır. [Burak Garcı](http://burakgarci.net) tarafından geliştirilmiştir.
 
 - Profil fotoğrafları [unsplash.com](http://unsplash.com) sitesi üzerinde **CC0 1.0 Evrensel** lisansı altında yayınlanan fotoğraflardan seçilmiştir.
 - [burakgarci.net/iletisim](http://burakgarci.net/iletisim) adresinden geribildirimde bulunabilirsiniz.
@@ -9,40 +9,95 @@ Rastgele Profil Oluşturucu tasarımcılar için rastgele profil bilgileri oluş
 
 ## API
 
-İstek limiti yoktur, bir defada en fazla 250 farklı kullanıcı profili oluşturabilirsiniz. Çıktı JSON formatındadır.
+Bir defada en fazla 250 farklı kullanıcı profili oluşturabilirsiniz. Çıktı JSON formatındadır. Makul kullanım sınırı IP başına saniyede 10 istektir (kısa süreli en fazla 20).
 
 ### Kullanım
 
-	http://rp.burakgarci.net/api.php
+	https://rp.burakgarci.net/api.php
 
 **Çıktı:**
 
 	{
-	    "isim": "Metin",
-	    "soyisim": "Yüksel",
-	    "tam_isim": "Metin Yüksel",
+	    "isim": "Ayhan",
+	    "soyisim": "Koç",
+	    "tam_isim": "Ayhan Koç",
 	    "cinsiyet": "erkek",
-	    "sehir": "Zile, Tokat",
-	    "adres": "Çalıkuşu Sokağı No:826 Zile, Tokat",
-	    "meslek": "Kurumsal Web İletişim Uzmanı",
-	    "eposta": "yukselmetin239@example.com",
-	    "kullanici_adi": "metin279",
-	    "sifre": "qLJaNm89EI",
-	    "dogum_tarihi": "19.07.1988",
-	    "yas": "27",
-	    "telefon_numarasi": "+905392037096",
-	    "ilgi_alani": "Bilardo meraklısı",
-	    "biyografi": "27 yaşında, Kurumsal Web İletişim Uzmanı",
-	    "profil_resmi": "http://res.cloudinary.com/brk/image/upload/erkek/93.jpg",
-	    "web_adresi": "yukselmetin.net"
+	    "sehir": "Osmaneli, Bilecik",
+	    "adres": "İstiklal Bulvarı No:663 Osmaneli, Bilecik",
+	    "meslek": "Akademik Direktör",
+	    "eposta": "kocayhan@example.com",
+	    "kullanici_adi": "ayhan_koc",
+	    "sifre": "f6CT21ckEq",
+	    "dogum_tarihi": "08.12.1987",
+	    "yas": "38",
+	    "telefon_numarasi": "+908512519224",
+	    "ilgi_alani": "Jimnastik izleyicisi",
+	    "biyografi": "Jimnastik izleyicisi, Akademik Direktör. 38 yaşında.",
+	    "profil_resmi": "https://ik.imagekit.io/brk/erkek/7.jpg",
+	    "web_adresi": "ayhankoc.net.tr"
 	}
 
 ### Parametreler
 
-**Cinsiyet seçerek oluşturma (kadın, erkek):**
+| Parametre | Değer | Açıklama |
+|---|---|---|
+| `cinsiyet` | `kadın` / `kadin`, `erkek` | Büyük/küçük harf ve Türkçe karakter fark etmez. Boş, `uniseks` ya da `rastgele` rastgele seçer. |
+| `adet` | `1`–`250` | Verildiğinde yanıt her zaman dizidir (`adet=1` dahil). 250 üstü 250'ye indirilir. |
+| `eposta_alan_adi` | ör. `firmam.com` | E-posta adreslerinin alan adı. Varsayılan `example.com`. |
+| `seed` | `0`–`2147483647` | Aynı seed aynı gün içinde aynı sonucu verir. |
 
-	http://rp.burakgarci.net/api.php?cinsiyet=kadın
+**Cinsiyet seçerek oluşturma:**
+
+	https://rp.burakgarci.net/api.php?cinsiyet=kadin
 
 **Birden fazla profil oluşturma (en fazla 250):**
 
-	http://rp.burakgarci.net/api.php?adet=20
+	https://rp.burakgarci.net/api.php?adet=20
+
+**Kendi alan adınızla e-posta:**
+
+	https://rp.burakgarci.net/api.php?eposta_alan_adi=firmam.com
+
+### Hatalar ve sınırlar
+
+Hatalarda gövde her zaman `{"hata": "..."}` biçimindedir.
+
+| Durum | Ne zaman |
+|---|---|
+| `400` | Geçersiz parametre (ör. `adet=abc`, `cinsiyet=foo`) |
+| `405` | GET dışında bir metot |
+| `429` | Kullanım sınırı aşıldı; `Retry-After` başlığı kaç saniye sonra denenebileceğini söyler |
+| `500` | Sunucu hatası |
+
+Her yanıtta `X-RateLimit-Limit` ve `X-RateLimit-Remaining` başlıkları bulunur.
+
+## Kurulum
+
+PHP 7.4 veya üstü yeterlidir (8.x önerilir). Sunucuda Composer veya terminal gerekmez.
+
+- Dosyaları FTP ile yükleyin. `tests/`, `vendor/`, `composer.json`, `phpunit.xml.dist` ve `.md` dosyalarının yüklenmesi gerekmez.
+- `depo/` klasörü PHP tarafından yazılabilir olmalı (hız sınırı sayaçları burada tutulur; `.htaccess` ile dışarıya kapalıdır).
+- Sağlık kontrolü: `saglik.php` veri dosyalarını, fotoğrafları ve sayaç deposunu kontrol eder; sorun varsa `503` döner.
+
+### Ayarlar
+
+Varsayılanlar `config.php` içindedir. Sunucuya özel değişiklikleri `config.local.php` dosyasına yazın (git'e girmez):
+
+```php
+<?php
+return [
+    'hiz_siniri' => [
+        'saniyede' => 10,               // 0 = sınırsız
+        'gunluk' => 0,                  // 0 = kapalı
+        'anahtarlar' => ['gizli-anahtar'], // X-Api-Anahtari başlığıyla sınırsız erişim
+        'beyaz_liste' => ['1.2.3.4'],   // sınırsız IP'ler
+    ],
+];
+```
+
+### Geliştirme
+
+```sh
+composer install
+composer test
+```

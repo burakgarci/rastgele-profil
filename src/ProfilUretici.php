@@ -41,7 +41,9 @@ final class ProfilUretici
 
         $cinsiyet = $cinsiyet ?? $r->sec(self::CINSIYETLER);
         $isim = $r->sec($cinsiyet === 'kadın' ? $v->kadinIsimleri : $v->erkekIsimleri);
-        $soyisim = $r->sec($v->soyisimler);
+        do {
+            $soyisim = $r->sec($v->soyisimler); // "Yılmaz Yılmaz" gibi tekrarları önle
+        } while ($soyisim === $isim);
         $sehir = $r->sec($v->sehirler);
         $meslek = $r->sec($v->meslekler);
         $dogum = $this->dogumTarihi();

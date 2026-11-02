@@ -52,6 +52,7 @@ final class ProfilUreticiTest extends TestCase
         for ($i = 0; $i < 300; $i++) {
             $p = $u->uret();
             $this->assertSame($p['isim'] . ' ' . $p['soyisim'], $p['tam_isim']);
+            $this->assertNotSame($p['isim'], $p['soyisim']);
             $this->assertContains($p['cinsiyet'], ['erkek', 'kadın']);
             $this->assertContains($p['isim'], $p['cinsiyet'] === 'kadın' ? self::$veri->kadinIsimleri : self::$veri->erkekIsimleri);
             $this->assertStringContainsString($p['cinsiyet'] === 'kadın' ? '/kadin/' : '/erkek/', $p['profil_resmi']);

@@ -3,7 +3,8 @@
 Tarihler sürüm numarası yerine kullanılır. Sitenin Hakkında sayfasındaki liste bu dosyadan okunur; başlık biçimi `## YYYY-AA(-GG) — Başlık`.
 
 ## 2026-11-02 — Yeni arayüz ve güvenli altyapı
-- Arayüz baştan tasarlandı: açık ve koyu tema, alan başına kopyalama, mobil uyum.
+- Arayüz baştan tasarlandı: açık ve koyu tema, mobil uyum. Bir değere tıklamak onu kopyalıyor.
+- Profil fotoğrafı büyüdü; indirilebiliyor ve profili değiştirmeden başka bir fotoğraf seçilebiliyor.
 - API belgeleri sayfası ve canlı deneme alanı eklendi.
 - Yeni parametreler: `eposta_alan_adi` ve `seed`. `cinsiyet` artık `kadin` yazımını da kabul ediyor.
 - Geçersiz parametreler artık açıklamalı bir hata döndürüyor; makul kullanım sınırı eklendi.

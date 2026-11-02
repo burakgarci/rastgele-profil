@@ -94,6 +94,17 @@ final class ApiTest extends TestCase
         $this->assertStringNotContainsString('/yok', $y->govde);
     }
 
+    public function testResimAdresiIstegeGoreTamAdres(): void
+    {
+        $api = new Api(test_ayarlari(), new BellekDeposu());
+        $p = json_decode($api->isle([], ['REQUEST_METHOD' => 'GET', 'REMOTE_ADDR' => '1.1.1.1', 'HTTP_HOST' => 'rp.burakgarci.net', 'HTTPS' => 'on', 'SCRIPT_NAME' => '/api.php'])->govde, true);
+        $this->assertMatchesRegularExpression('#^https://rp\.burakgarci\.net/photos/(erkek|kadin)/\d+\.jpg$#', $p['profil_resmi']);
+        $this->assertSame('http://localhost:8080/alt/photos/', Api::resimTabani(['HTTP_HOST' => 'localhost:8080', 'SCRIPT_NAME' => '/alt/api.php']));
+        $this->assertSame('photos/', Api::resimTabani(['HTTP_HOST' => 'kötü host']));
+        $p = json_decode((new Api(test_ayarlari(['resim_url_tabani' => 'https://cdn.ornek.com/']), new BellekDeposu()))->isle([], ['REQUEST_METHOD' => 'GET', 'REMOTE_ADDR' => '1.1.1.1'])->govde, true);
+        $this->assertStringStartsWith('https://cdn.ornek.com/', $p['profil_resmi']);
+    }
+
     public function testSaglik(): void
     {
         $y = Saglik::rapor(test_ayarlari(['hiz_siniri' => ['dizin' => sys_get_temp_dir() . '/rp-saglik']]));

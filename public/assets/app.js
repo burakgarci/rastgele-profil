@@ -58,22 +58,30 @@
   }
 
   function avatarYerlestir(el, p) {
-    el.className = 'avatar' + (p.cinsiyet === 'kadın' ? ' kadin' : '');
+    el.className = el.className.replace(/\s*kadin/, '') + (p.cinsiyet === 'kadın' ? ' kadin' : '');
     el.textContent = (p.isim.charAt(0) + p.soyisim.charAt(0)).toLocaleUpperCase('tr');
     var img = new Image();
     img.alt = '';
     img.onload = function () {
+      if (el.getAttribute('data-src') !== img.src) return; // daha yeni bir resim istendi
       el.textContent = '';
       el.appendChild(img);
     };
     img.src = p.profil_resmi;
+    el.setAttribute('data-src', img.src);
   }
 
   /* Satır kopyalama: her sayfada .satir içindeki .kopya düğmesi kendi değerini kopyalar. */
   $$('.satir').forEach(function (s) {
     var d = $('.d', s);
     var b = $('.kopya', s);
-    if (d && b) kopyalaDugme(b, function () { return d.textContent; });
+    if (!d || !b) return;
+    kopyalaDugme(b, function () { return d.textContent; });
+    // Değerin kendisine tıklamak da kopyalar; metin seçiliyorsa seçime dokunmaz.
+    d.addEventListener('click', function () {
+      var secim = window.getSelection ? String(window.getSelection()) : '';
+      if (!secim) b.click();
+    });
   });
 
   /* Cinsiyet sekmeleri */
@@ -81,8 +89,10 @@
     var dugmeler = $$('[data-cinsiyet]', kok);
     dugmeler.forEach(function (b) {
       b.addEventListener('click', function () {
-        dugmeler.forEach(function (x) { x.setAttribute('aria-pressed', x === b ? 'true' : 'false'); });
-        degisince(b.getAttribute('data-cinsiyet'));
+        var c = b.getAttribute('data-cinsiyet');
+        // Aynı değerdeki tüm düğmeler birlikte seçilir (masaüstü kartı ve mobil alt çubuk).
+        dugmeler.forEach(function (x) { x.setAttribute('aria-pressed', x.getAttribute('data-cinsiyet') === c ? 'true' : 'false'); });
+        degisince(c);
       });
     });
   }
@@ -98,11 +108,30 @@
     var doldur = function (p) {
       simdiki = p;
       $$('[data-alan]').forEach(function (el) { el.textContent = p[el.getAttribute('data-alan')]; });
-      $('#ad').textContent = p.tam_isim;
-      $('#ozet').textContent = p.yas + ' yaşında, ' + p.meslek;
-      $('#yer').textContent = p.sehir;
-      $('#bio').textContent = p.biyografi;
+      fotoGoster(p);
+    };
+
+    var fotoGoster = function (p) {
       avatarYerlestir($('#avatar'), p);
+      var indir = $('#foto-indir');
+      indir.href = p.profil_resmi;
+      indir.setAttribute('download', p.profil_resmi.split('/').slice(-2).join('-'));
+    };
+
+    var fotoYenile = function () {
+      if (!simdiki || bekliyor) return;
+      var dugme = $('#foto-yenile');
+      dugme.disabled = true;
+      getir('api.php?cinsiyet=' + (simdiki.cinsiyet === 'kadın' ? 'kadin' : 'erkek'))
+        .then(function (s) {
+          if (!s.ok || !s.veri || !s.veri.profil_resmi) throw new Error(s.veri && s.veri.hata ? s.veri.hata : 'Resim alınamadı.');
+          simdiki.profil_resmi = s.veri.profil_resmi;
+          $('[data-alan="profil_resmi"]').textContent = simdiki.profil_resmi;
+          fotoGoster(simdiki);
+          durum.textContent = '';
+        })
+        .catch(function (h) { durum.textContent = hataMesaji(h); })
+        .then(function () { dugme.disabled = false; });
     };
 
     var yeni = function () {
@@ -124,15 +153,16 @@
         });
     };
 
-    cinsiyetSekmeleri(kok, function (c) {
+    cinsiyetSekmeleri(document, function (c) {
       cinsiyet = c;
       yeni();
     });
     $$('[data-yeni]').forEach(function (b) { b.addEventListener('click', yeni); });
+    $('#foto-yenile').addEventListener('click', fotoYenile);
     kopyalaDugme($('#json-kopyala'), function () { return JSON.stringify(simdiki, null, 4); }, 'JSON kopyalandı');
 
     document.addEventListener('keydown', function (e) {
-      if ((e.key !== ' ' && e.code !== 'Space') || e.ctrlKey || e.metaKey || e.altKey) return;
+      if ((e.key !== ' ' && e.code !== 'Space') || e.repeat || e.ctrlKey || e.metaKey || e.altKey) return;
       if (e.target.closest && e.target.closest('button, a, input, textarea, select, [contenteditable]')) return;
       e.preventDefault();
       yeni();
@@ -199,8 +229,10 @@
       cikti.hidden = profil;
       profilGorunum.hidden = !profil;
       if (profil) {
-        var p = Array.isArray(son.veri) ? son.veri[0] : son.veri;
-        profilGorunum.innerHTML = p ? Object.keys(p).map(function (k) {
+        var dizi = Array.isArray(son.veri);
+        var p = dizi ? son.veri[0] : son.veri;
+        var not = dizi && son.veri.length > 1 ? '<p class="not" style="padding: 10px 0">' + son.veri.length + ' profilden ilki gösteriliyor. Tamamı JSON görünümünde.</p>' : '';
+        profilGorunum.innerHTML = p ? not + Object.keys(p).map(function (k) {
           return '<div class="satir"><span class="e">' + esc(k) + '</span><span class="d">' + esc(p[k]) + '</span><span></span></div>';
         }).join('') : '<p class="not">Boş yanıt.</p>';
       } else if (gorunum === 'curl') {

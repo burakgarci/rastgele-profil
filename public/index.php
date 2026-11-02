@@ -20,26 +20,31 @@ require __DIR__ . '/../sablonlar/ust.php';
 </section>
 
 <main class="duzen yukleniyor" id="profil">
-<section class="yan kart" aria-label="Profil">
-<div class="avatar" id="avatar" aria-hidden="true"></div>
-<div class="kimlik">
-<h2 id="ad">&nbsp;</h2>
-<p id="ozet">&nbsp;</p>
-<p id="yer">&nbsp;</p>
-</div>
-<p class="bio" id="bio">&nbsp;</p>
+<div class="yan sol">
+<section class="kart kontrol" aria-label="Oluşturucu">
 <div class="sekmeler" role="group" aria-label="Cinsiyet">
 <button type="button" data-cinsiyet="" aria-pressed="true">Rastgele</button>
 <button type="button" data-cinsiyet="kadin" aria-pressed="false">Kadın</button>
 <button type="button" data-cinsiyet="erkek" aria-pressed="false">Erkek</button>
 </div>
 <button type="button" class="dugme yeni" data-yeni>Yeni profil üret <kbd>Boşluk</kbd></button>
-<button type="button" class="baglanti" id="json-kopyala">JSON olarak kopyala</button>
+</section>
 <p class="durum" id="durum" role="status" aria-live="polite"></p>
 <noscript><p class="durum">Bu sayfa JavaScript ile çalışır. Profilleri <a class="link" href="api.php">API</a> üzerinden de alabilirsiniz.</p></noscript>
-</section>
+<figure class="foto">
+<div class="avatar buyuk" id="avatar" role="img" aria-label="Profil fotoğrafı"></div>
+<figcaption class="foto-arac">
+<a class="baglanti" id="foto-indir" href="#" download><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11"></path><path d="M7.5 10.5L12 15l4.5-4.5"></path><path d="M5 19.5h14"></path></svg>İndir</a>
+<button type="button" class="baglanti" id="foto-yenile"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 11a8 8 0 1 0-2.3 5.7"></path><path d="M20 4v7h-7"></path></svg>Başka resim</button>
+</figcaption>
+</figure>
+</div>
 
 <div class="ana">
+<div class="veri-ust">
+<span class="not">Bir değere tıklamak onu kopyalar.</span>
+<button type="button" class="baglanti" id="json-kopyala">Tümünü JSON olarak kopyala</button>
+</div>
 <?php foreach ($gruplar as $grup => $alanlar) : ?>
 <section>
 <h2 class="grup-baslik"><?= $grup ?></h2>
@@ -58,6 +63,11 @@ require __DIR__ . '/../sablonlar/ust.php';
 </main>
 
 <div class="alt-cubuk">
+<div class="sekmeler" role="group" aria-label="Cinsiyet">
+<button type="button" data-cinsiyet="" aria-pressed="true">Rastgele</button>
+<button type="button" data-cinsiyet="kadin" aria-pressed="false">Kadın</button>
+<button type="button" data-cinsiyet="erkek" aria-pressed="false">Erkek</button>
+</div>
 <button type="button" class="dugme" data-yeni>Yeni profil üret</button>
 </div>
 <?php require __DIR__ . '/../sablonlar/alt.php'; ?>

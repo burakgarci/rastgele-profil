@@ -60,7 +60,7 @@ final class Api
             $uretici = new ProfilUretici(
                 Veri::yukle($this->ayar['veri_dizini'], $this->ayar['foto_dizini']),
                 new Rastgele($istek->seed),
-                $this->ayar['resim_url_tabani']
+                $this->ayar['resim_url_tabani'] ?? self::resimTabani($sunucu)
             );
 
             if ($istek->adet === null) {
@@ -103,6 +103,20 @@ final class Api
             }
         }
         return new HizSiniri($ayar, $this->depo);
+    }
+
+    /** Resim adreslerinin tabanı, isteğin geldiği adresten: https://alan.adi/alt/dizin/photos/ */
+    public static function resimTabani(array $sunucu): string
+    {
+        $host = strtolower((string) ($sunucu['HTTP_HOST'] ?? ''));
+        if (!preg_match('/^[a-z0-9.-]+(:\d+)?$/', $host)) {
+            return 'photos/';
+        }
+        $https = (!empty($sunucu['HTTPS']) && $sunucu['HTTPS'] !== 'off')
+            || strtolower((string) ($sunucu['HTTP_X_FORWARDED_PROTO'] ?? '')) === 'https'
+            || (string) ($sunucu['SERVER_PORT'] ?? '') === '443';
+        $dizin = rtrim(str_replace('\\', '/', dirname((string) ($sunucu['SCRIPT_NAME'] ?? '/'))), '/');
+        return ($https ? 'https' : 'http') . '://' . $host . $dizin . '/photos/';
     }
 
     private function ip(array $sunucu): string

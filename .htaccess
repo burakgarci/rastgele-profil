@@ -1,5 +1,8 @@
 # Alt alan adının kök dizini public/ yapılamıyorsa diye: tüm istekleri public/'e yönlendirir.
 # Kök dizin public/ olarak ayarlandığında bu dosya hiç okunmaz.
+# .well-known (SSL sertifika doğrulaması) ve cgi-bin hosting firmasına ait; yönlendirilmez.
 RewriteEngine On
 RewriteCond %{REQUEST_URI} !^/public/
+RewriteCond %{REQUEST_URI} !^/\.well-known/
+RewriteCond %{REQUEST_URI} !^/cgi-bin/
 RewriteRule ^(.*)$ public/$1 [L]

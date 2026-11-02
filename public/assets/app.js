@@ -66,7 +66,7 @@
       el.textContent = '';
       el.appendChild(img);
     };
-    img.src = p.profil_resmi + '?tr=w-176,h-176';
+    img.src = p.profil_resmi;
   }
 
   /* Satır kopyalama: her sayfada .satir içindeki .kopya düğmesi kendi değerini kopyalar. */

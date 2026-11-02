@@ -42,7 +42,7 @@ require __DIR__ . '/../sablonlar/ust.php';
 <div class="ana">
 <?php foreach ($gruplar as $grup => $alanlar) : ?>
 <section>
-<h2 class="label"><?= $grup ?></h2>
+<h2 class="grup-baslik"><?= $grup ?></h2>
 <div class="alanlar">
 <?php foreach ($alanlar as $a) : ?>
 <div class="satir">

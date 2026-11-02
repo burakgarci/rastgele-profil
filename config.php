@@ -10,7 +10,7 @@
 return [
     'azami_adet' => 250,
     'eposta_alan_adi' => 'example.com',
-    'resim_url_tabani' => 'https://ik.imagekit.io/brk/',
+    'resim_url_tabani' => 'https://rp.burakgarci.net/photos/',
     'veri_dizini' => __DIR__ . '/data',
     'foto_dizini' => __DIR__ . '/public/photos',
     'saat_dilimi' => 'Europe/Istanbul',

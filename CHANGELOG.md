@@ -8,6 +8,7 @@ Tarihler sürüm numarası yerine kullanılır. Sitenin Hakkında sayfasındaki 
 - Yeni parametreler: `eposta_alan_adi` ve `seed`. `cinsiyet` artık `kadin` yazımını da kabul ediyor.
 - Geçersiz parametreler artık açıklamalı bir hata döndürüyor; makul kullanım sınırı eklendi.
 - Tek seferde en fazla 250 profil.
+- Profil resimleri yeniden sitenin kendi sunucusundan veriliyor.
 - Veri hataları düzeltildi: görünmez karakterler, bazı isimlerdeki bozuk harfler, “Bulvarı Caddesi” gibi çift ekler.
 
 ## 2024-02 — Açık kaynak lisansı

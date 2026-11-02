@@ -33,7 +33,7 @@ Bir defada en fazla 250 farklı kullanıcı profili oluşturabilirsiniz. Çıkt�
 	    "telefon_numarasi": "+908512519224",
 	    "ilgi_alani": "Jimnastik izleyicisi",
 	    "biyografi": "Jimnastik izleyicisi, Akademik Direktör. 38 yaşında.",
-	    "profil_resmi": "https://ik.imagekit.io/brk/erkek/7.jpg",
+	    "profil_resmi": "https://rp.burakgarci.net/photos/erkek/7.jpg",
 	    "web_adresi": "ayhankoc.net.tr"
 	}
 

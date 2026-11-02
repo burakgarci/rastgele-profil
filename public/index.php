@@ -19,7 +19,7 @@ require __DIR__ . '/../sablonlar/ust.php';
 <p>Tasarım ve test için gerçekçi ama hayali kişi bilgileri. Her alan tek tıkla kopyalanır.</p>
 </section>
 
-<main class="duzen yukleniyor" id="profil">
+<main class="duzen yukleniyor ilk-yukleme" id="profil">
 <div class="yan sol">
 <section class="kart kontrol" aria-label="Oluşturucu">
 <div class="sekmeler" role="group" aria-label="Cinsiyet">
@@ -32,7 +32,7 @@ require __DIR__ . '/../sablonlar/ust.php';
 <p class="durum" id="durum" role="status" aria-live="polite"></p>
 <noscript><p class="durum">Bu sayfa JavaScript ile çalışır. Profilleri <a class="link" href="api.php">API</a> üzerinden de alabilirsiniz.</p></noscript>
 <figure class="foto">
-<div class="avatar buyuk" id="avatar" role="img" aria-label="Profil fotoğrafı"></div>
+<div class="avatar buyuk bekliyor" id="avatar" role="img" aria-label="Profil fotoğrafı"></div>
 <figcaption class="foto-arac">
 <a class="baglanti" id="foto-indir" href="#" download><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11"></path><path d="M7.5 10.5L12 15l4.5-4.5"></path><path d="M5 19.5h14"></path></svg>İndir</a>
 <button type="button" class="baglanti" id="foto-yenile"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 11a8 8 0 1 0-2.3 5.7"></path><path d="M20 4v7h-7"></path></svg>Başka resim</button>

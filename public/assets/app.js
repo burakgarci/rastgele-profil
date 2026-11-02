@@ -57,15 +57,25 @@
     return (h && h.message) || 'Profil oluşturulamadı.';
   }
 
+  /* Resim inene kadar parıltı gösterir; inince yumuşakça belirir, inmezse baş harfler görünür. */
   function avatarYerlestir(el, p) {
-    el.className = el.className.replace(/\s*kadin/, '') + (p.cinsiyet === 'kadın' ? ' kadin' : '');
-    el.textContent = (p.isim.charAt(0) + p.soyisim.charAt(0)).toLocaleUpperCase('tr');
+    el.classList.toggle('kadin', p.cinsiyet === 'kadın');
+    el.classList.add('bekliyor');
+    el.textContent = '';
     var img = new Image();
     img.alt = '';
+    var guncel = function () { return el.getAttribute('data-src') === img.src; }; // daha yeni bir resim istenmiş olabilir
     img.onload = function () {
-      if (el.getAttribute('data-src') !== img.src) return; // daha yeni bir resim istendi
+      if (!guncel()) return;
       el.textContent = '';
       el.appendChild(img);
+      el.classList.remove('bekliyor');
+      requestAnimationFrame(function () { img.classList.add('gorunur'); });
+    };
+    img.onerror = function () {
+      if (!guncel()) return;
+      el.classList.remove('bekliyor');
+      el.textContent = (p.isim.charAt(0) + p.soyisim.charAt(0)).toLocaleUpperCase('tr');
     };
     img.src = p.profil_resmi;
     el.setAttribute('data-src', img.src);
@@ -148,7 +158,7 @@
         .catch(function (h) { durum.textContent = hataMesaji(h); })
         .then(function () {
           bekliyor = false;
-          kok.classList.remove('yukleniyor');
+          kok.classList.remove('yukleniyor', 'ilk-yukleme');
           $$('[data-yeni]').forEach(function (b) { b.disabled = false; });
         });
     };

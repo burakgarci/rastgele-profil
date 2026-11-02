@@ -17,6 +17,7 @@
   --tint-orange: rgba(196, 83, 26, .12);
   --bar: rgba(242, 243, 245, .86);
   --hat: rgba(18, 19, 24, .08);
+  --parilti: rgba(255, 255, 255, .75);
   --font: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI Variable Text", "Segoe UI", system-ui, sans-serif;
   --font-display: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI Variable Display", "Segoe UI", system-ui, sans-serif;
   --mono: ui-monospace, "SF Mono", "Cascadia Code", Consolas, monospace;
@@ -27,7 +28,7 @@
     --bg: #17181c; --text: #ececf0; --muted: #a7a8b2; --faint: #2d2e35; --dot: rgba(255, 255, 255, .09);
     --accent: #6aa5ff; --accent-text: #0d1420; --green: #4cc79a; --orange: #f08a52; --code-bg: #202127;
     --card: rgba(255, 255, 255, .035); --glow-1: rgba(106, 165, 255, .12); --glow-2: rgba(240, 138, 82, .08);
-    --tint-blue: rgba(106, 165, 255, .16); --tint-orange: rgba(240, 138, 82, .16); --bar: rgba(23, 24, 28, .86); --hat: rgba(255, 255, 255, .08);
+    --tint-blue: rgba(106, 165, 255, .16); --tint-orange: rgba(240, 138, 82, .16); --bar: rgba(23, 24, 28, .86); --hat: rgba(255, 255, 255, .08); --parilti: rgba(255, 255, 255, .07);
     color-scheme: dark;
   }
 }
@@ -126,7 +127,24 @@ code, kbd { font: .88em var(--mono); background: var(--code-bg); padding: 2px 5p
 .satir:hover .kopya, .kopya:focus-visible, .kopya.ok { opacity: 1; }
 .kopya:hover { color: var(--text); }
 .kopya.ok { color: var(--green); }
-.yukleniyor .d, .yukleniyor .avatar { opacity: .45; transition: opacity .15s; }
+.yukleniyor .d { opacity: .45; transition: opacity .15s; }
+
+/* Yükleme iskeleti: fotoğraf inerken ve ilk açılışta değerlerin yerinde parıltı */
+@keyframes parilti { from { background-position: 150% 0; } to { background-position: -50% 0; } }
+.avatar.bekliyor, .ilk-yukleme .satir .d::before {
+  background-color: var(--code-bg);
+  background-image: linear-gradient(100deg, transparent 30%, var(--parilti) 50%, transparent 70%);
+  background-size: 200% 100%;
+  background-repeat: no-repeat;
+  -webkit-animation: parilti 1.3s ease-in-out infinite;
+  animation: parilti 1.3s ease-in-out infinite;
+}
+.avatar img { opacity: 0; transition: opacity .25s ease; }
+.avatar img.gorunur { opacity: 1; }
+.ilk-yukleme .satir .d { position: relative; color: transparent; opacity: 1; }
+.ilk-yukleme .satir .d::before { content: ""; position: absolute; left: 0; top: 50%; height: 14px; margin-top: -7px; width: 58%; border-radius: 6px; }
+.ilk-yukleme .satir:nth-child(3n+2) .d::before { width: 42%; }
+.ilk-yukleme .satir:nth-child(3n) .d::before { width: 70%; }
 
 .durum { margin: 0; font-size: 15px; color: var(--orange); }
 .durum:empty { display: none; }
@@ -215,4 +233,4 @@ code, kbd { font: .88em var(--mono); background: var(--code-bg); padding: 2px 5p
   .list > li { grid-template-columns: 1fr; }
   .alt { flex-direction: column; gap: 12px; }
 }
-@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; -webkit-animation: none !important; animation: none !important; } }
